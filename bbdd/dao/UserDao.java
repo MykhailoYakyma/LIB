@@ -1,4 +1,4 @@
-package bbdd.dao;
+package LIB.bbdd.dao;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,8 +8,8 @@ import javax.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import bbdd.entity.User;
-import bbdd.util.HibernateUtil;
+import LIB.bbdd.entity.User;
+import LIB.bbdd.util.HibernateUtil;
 
 public class UserDao {
 

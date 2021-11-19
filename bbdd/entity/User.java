@@ -1,4 +1,4 @@
-package bbdd.entity;
+package LIB.bbdd.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
