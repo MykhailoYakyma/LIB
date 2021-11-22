@@ -1,4 +1,4 @@
-package bbdd.entity;
+package LIB.bbdd.entity;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package bbdd.dao;
+package LIB.bbdd.dao;
 
 import java.io.Serializable;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import bbdd.entity.Contest;
-import bbdd.util.HibernateUtil;
+import LIB.bbdd.entity.Contest;
+import LIB.bbdd.util.HibernateUtil;
 
 public class ContestDao {
 
