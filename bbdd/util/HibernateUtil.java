@@ -1,4 +1,4 @@
-package bbdd.util;
+package LIB.bbdd.util;
 
 import java.util.Properties;
 
@@ -8,13 +8,13 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
-import bbdd.entity.Admin;
-import bbdd.entity.Answers;
-import bbdd.entity.Contest;
-import bbdd.entity.Kahoot;
-import bbdd.entity.Participant;
-import bbdd.entity.Questions;
-import bbdd.entity.User;
+import LIB.bbdd.entity.Admin;
+import LIB.bbdd.entity.Answers;
+import LIB.bbdd.entity.Contest;
+import LIB.bbdd.entity.Kahoot;
+import LIB.bbdd.entity.Participant;
+import LIB.bbdd.entity.Questions;
+import LIB.bbdd.entity.User;
 
 public class HibernateUtil {
 
