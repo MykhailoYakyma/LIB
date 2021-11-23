@@ -24,7 +24,7 @@ public class Kahoot {
 	private int id;
 
 	@Column(name = "Name")
-	private String Name;
+	private String name;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Admin")
@@ -40,9 +40,10 @@ public class Kahoot {
 		super();
 	}
 
-	public Kahoot(String name) {
+	public Kahoot(String text, Admin creator) {
 		super();
-		Name = name;
+		this.name = text;
+		this.admin = creator;
 	}
 
 	public int getId() {
@@ -54,11 +55,11 @@ public class Kahoot {
 	}
 
 	public String getName() {
-		return Name;
+		return name;
 	}
 
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
 
 	public Admin getAdminName() {
@@ -66,7 +67,7 @@ public class Kahoot {
 	}
 
 	public void setAdminName(Admin adminName) {
-		admin = adminName;
+		this.admin = adminName;
 	}
 
 	public List<Contest> getContests() {
