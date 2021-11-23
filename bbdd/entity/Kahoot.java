@@ -27,7 +27,7 @@ public class Kahoot {
 	private String Name;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "AdminName")
+	@JoinColumn(name = "Admin")
 	private Admin admin;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "kahoot")

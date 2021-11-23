@@ -74,7 +74,7 @@ public class AnswersDao {
 		return Answers2;
 	}
 
-	public List<Answers> getAnswerss() {
+	public List<Answers> getAnswers() {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			return session.createQuery("from Answers", Answers.class).list();
 		}

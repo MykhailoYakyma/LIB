@@ -48,6 +48,11 @@ public class Questions {
 		super();
 	}
 
+	public Questions(String text) {
+		super();
+		this.question = text;
+	}
+
 	public int getId() {
 		return id;
 	}
