@@ -5,13 +5,15 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
+import LIB.bbdd.entity.Kahoot;
 import LIB.bbdd.entity.Questions;
 import LIB.bbdd.util.HibernateUtil;
 
 public class QuestionsDao {
 
-	public void saveQuestions(Questions questions) {
+	public static void saveQuestions(Questions questions) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			// start a transaction
@@ -74,9 +76,16 @@ public class QuestionsDao {
 		return Questions2;
 	}
 
-	public List<Questions> getQuestionss() {
+	public List<Questions> getQuestions() {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			return session.createQuery("from Questions", Questions.class).list();
+		}
+	}
+	
+	public List<Questions> getQuestionsByKahoot(Kahoot kahoot) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.createCriteria(Questions.class).add(Restrictions.isNull("kahoot")).list();
+
 		}
 	}
 }

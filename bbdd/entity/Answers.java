@@ -33,12 +33,19 @@ public class Answers {
 	@Column(name = "Correct")
 	private boolean correct;
 
-	@JoinTable(name = "answers_participant", joinColumns = @JoinColumn(name = "ANSWERS_ID", nullable = false), inverseJoinColumns = @JoinColumn(name = "PARTICIPANT_ID", nullable = false))
+	@JoinTable(name = "answers_participant", joinColumns = @JoinColumn(name = "ANSWERS_ID"), inverseJoinColumns = @JoinColumn(name = "PARTICIPANT_ID"))
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Participant> participants;
 
 	public Answers() {
 		super();
+	}
+
+	public Answers(Questions question, String string, boolean selected) {
+		super();
+		this.questions = question;
+		this.answer = string;
+		this.correct = selected;
 	}
 
 	public List<Participant> getParticipants() {
