@@ -82,6 +82,7 @@ public class QuestionsDao {
 		}
 	}
 	
+	
 	public List<Questions> getQuestionsByKahoot(Kahoot kahoot) {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			return session.createCriteria(Questions.class).add(Restrictions.eqOrIsNull("kahoot", kahoot)).list();

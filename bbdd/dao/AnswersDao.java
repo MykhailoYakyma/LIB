@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import LIB.bbdd.entity.Answers;
+import LIB.bbdd.entity.Questions;
 import LIB.bbdd.util.HibernateUtil;
 
 public class AnswersDao {
@@ -77,6 +79,12 @@ public class AnswersDao {
 	public List<Answers> getAnswers() {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			return session.createQuery("from Answers", Answers.class).list();
+		}
+	}
+	
+	public List<Answers> getAnswersByQuestion(Questions question) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.createCriteria(Answers.class).add(Restrictions.eqOrIsNull("questions", question)).list();
 		}
 	}
 }
