@@ -1,10 +1,16 @@
 package LIB.bbdd.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,14 +25,26 @@ public class Participant {
 	@Column(name = "Alias")
 	private String alias;
 
-	@Column(name = "ContestId") // one to many
-	private int contestId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ContestId")
+	private Contest contest;
 
-	@Column(name = "UserId") // one to many
-	private int userId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UserId")
+	private User user;
+
+	@ManyToMany(mappedBy = "participants")
+	private List<Answers> answers;
 
 	public Participant() {
 
+	}
+
+	public Participant(String alias, Contest contest, User user) {
+		super();
+		this.alias = alias;
+		this.contest = contest;
+		this.user = user;
 	}
 
 	public Participant(String alias) {
@@ -50,20 +68,28 @@ public class Participant {
 		this.alias = alias;
 	}
 
-	public int getContestId() {
-		return contestId;
+	public Contest getContest() {
+		return contest;
 	}
 
-	public void setContestId(int contestId) {
-		this.contestId = contestId;
+	public void setContest(Contest contest) {
+		this.contest = contest;
 	}
 
-	public int getUserId() {
-		return userId;
+	public List<Answers> getAnswers() {
+		return answers;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setAnswers(List<Answers> answers) {
+		this.answers = answers;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

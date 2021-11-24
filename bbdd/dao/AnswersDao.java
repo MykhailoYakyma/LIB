@@ -5,23 +5,25 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
-import LIB.bbdd.entity.Admin;
+import LIB.bbdd.entity.Answers;
+import LIB.bbdd.entity.Questions;
 import LIB.bbdd.util.HibernateUtil;
 
-public class AdminDao {
+public class AnswersDao {
 
-	public void saveAdmin(Admin admin) {
+	public void saveAnswers(Answers answers) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			// start a transaction
 			transaction = session.beginTransaction();
 
 			// operation 1
-			Object object = session.save(admin);
+			Object object = session.save(answers);
 
 			// operation 2
-			session.get(Admin.class, (Serializable) object);
+			session.get(Answers.class, (Serializable) object);
 
 			// commit transaction
 			transaction.commit();
@@ -33,15 +35,15 @@ public class AdminDao {
 		}
 	}
 
-	public void updateAdmin(Admin admin) {
+	public void updateAnswers(Answers answers) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			// start a transaction
 			transaction = session.beginTransaction();
 
-			// save the Admin object
+			// save the Answers object
 
-			session.saveOrUpdate(admin);
+			session.saveOrUpdate(answers);
 
 			// commit transaction
 			transaction.commit();
@@ -53,16 +55,16 @@ public class AdminDao {
 		}
 	}
 
-	public Admin getAdmin(int id) {
+	public Answers getAnswers(int id) {
 
 		Transaction transaction = null;
-		Admin admin2 = null;
+		Answers Answers2 = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			// start a transaction
 			transaction = session.beginTransaction();
 
-			// get an Admin object
-			admin2 = session.get(Admin.class, id);
+			// get an Answers object
+			Answers2 = session.get(Answers.class, id);
 			// commit transaction
 			transaction.commit();
 		} catch (Exception e) {
@@ -71,12 +73,18 @@ public class AdminDao {
 			}
 			e.printStackTrace();
 		}
-		return admin2;
+		return Answers2;
 	}
 
-	public List<Admin> getAdmins() {
+	public List<Answers> getAnswers() {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			return session.createQuery("from Admin", Admin.class).list();
+			return session.createQuery("from Answers", Answers.class).list();
+		}
+	}
+	
+	public List<Answers> getAnswersByQuestion(Questions question) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.createCriteria(Answers.class).add(Restrictions.eqOrIsNull("questions", question)).list();
 		}
 	}
 }

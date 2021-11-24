@@ -3,8 +3,6 @@ package LIB.bbdd.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Query;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -20,7 +18,6 @@ public class UserDao {
 			transaction = session.beginTransaction();
 
 			// operation 1
-
 			Object object = session.save(user);
 
 			// operation 2
@@ -36,19 +33,15 @@ public class UserDao {
 		}
 	}
 
-	public void updateUser(User User) {
+	public void updateUser(User user) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			// start a transaction
 			transaction = session.beginTransaction();
 
-			// save the User object
-			String hql = "UPDATE User set Name = :Name " + "WHERE Id = :UserId";
-			Query query = session.createQuery(hql);
-			query.setParameter("Name", User.getName());
-			query.setParameter("UserId", 1);
-			int result = query.executeUpdate();
-			System.out.println("Rows affected: " + result);
+			// save the user object
+
+			session.saveOrUpdate(user);
 
 			// commit transaction
 			transaction.commit();
@@ -60,23 +53,16 @@ public class UserDao {
 		}
 	}
 
-	public void deleteUser(int Id) {
+	public User getUser(int id) {
 
 		Transaction transaction = null;
+		User user2 = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			// start a transaction
 			transaction = session.beginTransaction();
 
-			// Delete a User object
-			User User = session.get(User.class, Id);
-			if (User != null) {
-				String hql = "DELETE FROM User " + "WHERE Id = :UserId";
-				Query query = session.createQuery(hql);
-				query.setParameter("UserId", Id);
-				int result = query.executeUpdate();
-				System.out.println("Rows affected: " + result);
-			}
-
+			// get an user object
+			user2 = session.get(User.class, id);
 			// commit transaction
 			transaction.commit();
 		} catch (Exception e) {
@@ -85,34 +71,7 @@ public class UserDao {
 			}
 			e.printStackTrace();
 		}
-	}
-
-	public User getUser(int Id) {
-
-		Transaction transaction = null;
-		User User = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			// start a transaction
-			transaction = session.beginTransaction();
-
-			// get an User object
-			String hql = " FROM User S WHERE S.Id = :UserId";
-			Query query = session.createQuery(hql);
-			query.setParameter("UserId", Id);
-			List results = query.getResultList();
-
-			if (results != null && !results.isEmpty()) {
-				User = (User) results.get(0);
-			}
-			// commit transaction
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			e.printStackTrace();
-		}
-		return User;
+		return user2;
 	}
 
 	public List<User> getUsers() {

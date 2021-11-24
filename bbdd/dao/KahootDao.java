@@ -1,27 +1,31 @@
 package LIB.bbdd.dao;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import LIB.bbdd.entity.Admin;
+import LIB.bbdd.entity.Kahoot;
+import LIB.bbdd.entity.Questions;
 import LIB.bbdd.util.HibernateUtil;
 
-public class AdminDao {
+public class KahootDao {
 
-	public void saveAdmin(Admin admin) {
+	public void saveKahoot(Kahoot kahoot) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			// start a transaction
 			transaction = session.beginTransaction();
 
 			// operation 1
-			Object object = session.save(admin);
+			Object object = session.save(kahoot);
 
 			// operation 2
-			session.get(Admin.class, (Serializable) object);
+			session.get(Kahoot.class, (Serializable) object);
 
 			// commit transaction
 			transaction.commit();
@@ -33,15 +37,15 @@ public class AdminDao {
 		}
 	}
 
-	public void updateAdmin(Admin admin) {
+	public void updateKahoot(Kahoot kahoot) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			// start a transaction
 			transaction = session.beginTransaction();
 
-			// save the Admin object
+			// save the Kahoot object
 
-			session.saveOrUpdate(admin);
+			session.saveOrUpdate(kahoot);
 
 			// commit transaction
 			transaction.commit();
@@ -53,16 +57,16 @@ public class AdminDao {
 		}
 	}
 
-	public Admin getAdmin(int id) {
+	public Kahoot getKahoot(int id) {
 
 		Transaction transaction = null;
-		Admin admin2 = null;
+		Kahoot Kahoot2 = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			// start a transaction
 			transaction = session.beginTransaction();
 
-			// get an Admin object
-			admin2 = session.get(Admin.class, id);
+			// get an Kahoot object
+			Kahoot2 = session.get(Kahoot.class, id);
 			// commit transaction
 			transaction.commit();
 		} catch (Exception e) {
@@ -71,12 +75,19 @@ public class AdminDao {
 			}
 			e.printStackTrace();
 		}
-		return admin2;
+		return Kahoot2;
 	}
 
-	public List<Admin> getAdmins() {
+	public List<Kahoot> getKahoots() {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			return session.createQuery("from Admin", Admin.class).list();
+			return session.createQuery("from Kahoot", Kahoot.class).list();
+		}
+	}
+
+	public List<Kahoot> getKahootsByAdmin(Admin admin) {
+		
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.createCriteria(Kahoot.class).add(Restrictions.eqOrIsNull("admin", admin)).list();
 		}
 	}
 }
