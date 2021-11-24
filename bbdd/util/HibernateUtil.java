@@ -8,7 +8,13 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
-import LIB.bbdd.entity.*;
+import LIB.bbdd.entity.Admin;
+import LIB.bbdd.entity.Answers;
+import LIB.bbdd.entity.Contest;
+import LIB.bbdd.entity.Kahoot;
+import LIB.bbdd.entity.Participant;
+import LIB.bbdd.entity.Questions;
+import LIB.bbdd.entity.User;
 
 public class HibernateUtil {
 
@@ -31,7 +37,7 @@ public class HibernateUtil {
 
 				settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 
-				settings.put(Environment.HBM2DDL_AUTO, "create");
+				settings.put(Environment.HBM2DDL_AUTO, "update");
 
 				configuration.setProperties(settings);
 
