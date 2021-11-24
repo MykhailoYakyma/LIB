@@ -1,12 +1,16 @@
 package LIB.bbdd.dao;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
+import LIB.bbdd.entity.Admin;
 import LIB.bbdd.entity.Kahoot;
+import LIB.bbdd.entity.Questions;
 import LIB.bbdd.util.HibernateUtil;
 
 public class KahootDao {
@@ -77,6 +81,13 @@ public class KahootDao {
 	public List<Kahoot> getKahoots() {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			return session.createQuery("from Kahoot", Kahoot.class).list();
+		}
+	}
+
+	public List<Kahoot> getKahootsByAdmin(Admin admin) {
+		
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.createCriteria(Kahoot.class).add(Restrictions.eqOrIsNull("admin", admin)).list();
 		}
 	}
 }
