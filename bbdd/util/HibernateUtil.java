@@ -41,8 +41,6 @@ public class HibernateUtil {
 
 				configuration.setProperties(settings);
 
-				// configuration.addAnnotatedClass(Table1.class);
-
 				configuration.addAnnotatedClass(Admin.class);
 				configuration.addAnnotatedClass(User.class);
 				configuration.addAnnotatedClass(Contest.class);
