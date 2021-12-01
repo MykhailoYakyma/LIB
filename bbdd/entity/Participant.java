@@ -36,15 +36,25 @@ public class Participant {
 	@ManyToMany(mappedBy = "participants")
 	private List<Answers> answers;
 
+	@Column(name = "Points")
+	private int points;
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
 	public Participant() {
 
 	}
 
-	public Participant(String alias, Contest contest, User user) {
+	public Participant(String alias, Contest contest) {
 		super();
 		this.alias = alias;
 		this.contest = contest;
-		this.user = user;
 	}
 
 	public Participant(String alias) {

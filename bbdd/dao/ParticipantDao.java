@@ -5,8 +5,11 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
+import LIB.bbdd.entity.Contest;
 import LIB.bbdd.entity.Participant;
+import LIB.bbdd.entity.Questions;
 import LIB.bbdd.util.HibernateUtil;
 
 public class ParticipantDao {
@@ -78,5 +81,14 @@ public class ParticipantDao {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			return session.createQuery("from Participant", Participant.class).list();
 		}
+	}
+
+	public Participant getParticipantByName(String name) {
+		
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return (Participant) session.createCriteria(Participant.class).add(Restrictions.eq( "alias", name ));
+
+		}
+		
 	}
 }
